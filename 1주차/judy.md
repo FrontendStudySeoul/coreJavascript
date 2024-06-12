@@ -196,7 +196,11 @@
     arr1.reduce((p, c, i) => { return p + c + i }, '')  // undefined011
     arr2.reduce((p, c, i) => { return p + c + i }, '')  // 11
     ```
-    
+
+    > 💡 비어 있음 vs undefined
+    > - 비어 있음 : 배열 객체의 주소값은 할당되지만 각 배열 요소의 주소값은 할당되지 않으며, 값 또한 없음
+    > - undefined : 배열 객체의 주소값도 할당되고, 각 배열 요소의 주소값도 할당되며 값은 undefined로 할당됨
+
 - **💡 undefined의 의미 재정리**
     1. 사용자가 명시적으로 부여한 경우
         
