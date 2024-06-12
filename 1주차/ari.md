@@ -121,6 +121,39 @@ Object.defineProperty(o, "conflict", {
 > Observer pattern은 객체의 상태 변화를 관찰하는 옵저버들의 목록을 객체에 등록해서 상태 변화가 발생할 때마다 메서드 등을 통해 객체가 직접 목록의 각 옵저버들에게 통지하도록 하는 디자인 패턴.
 
 ```javascript
+
+// observable은 observe 에서 사용된다. observable(상태 변화 감지 객체)에 변화가 생기면, observe에 등록된 함수가 실행된다.
+
+// state는 reducer 을 실행하고 반환되는 state 값을 받아서 observe에 등록 
+export const observerable = (state) => {
+  const stateKeys = Object.keys(state);
+
+  for (const key of stateKeys) {
+    let _value = state[key];
+
+    const observers = new Set();
+
+    Object.defineProperty(state, key, {
+      get() {
+        if (currentObserver) observers.add(currentObserver);
+        return _value;
+      },
+      set(value) {
+        if (_value === value) return;
+
+        _value = value;
+        observers.forEach((observer) => observer());
+      },
+    });
+  }
+
+  return state;
+};
+
+```
+
+```javascript
+
 export const createStore = (reducer) => {
   const state = observerable(reducer());
 
@@ -146,10 +179,10 @@ export const createStore = (reducer) => {
     getState: () => frozenState,
   };
 };
+
 ```
 
 createStore 에는 state 등록, state 변경, state 조회 이렇게 3가지 기능이 수행이된다.
-
-- state 등록(subscribe)은 reducer가 실행한 state를 observerable로 만들어야한다.
+- state 등록(subscribe)은 reducer를 실행하고 반환된 state 값을 observerable로 만들어야한다.
 - state 변경(dispatch)는 state 값을 변경해야 한다.
 - state 조회(getState)는 state를 직접 반환하면 좋겠지만, state에는 getter, setter가 모두 포함되고 있기 때문에 직접 참조하여 수정이 가능하므로 getter만 가능하도록 frozenState를 따로 만드는 것이다. 이건 다른 방식도 있긴한데, 블로그에서 따로 확인하면 될 것 같다.
