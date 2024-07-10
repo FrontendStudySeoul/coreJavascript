@@ -23,6 +23,7 @@ console.log(outer2)
 특히 전역 변수는 자바스크립트 실행 환경 내에서 항상 도달 가능한 상태로 유지되기 때문에 큰 데이터를 담아두는건 좋은 설계는 아닙니다.(eventListner도 포함입니다!)<br>
 <br>
 비슷한 함수가 있습니다. 혹시 이상한점이 보이시나요?
+
 ```tsx
 var outer = function(){
   var a = 1;
@@ -36,6 +37,7 @@ var outer2 = outer();
 console.log(outer2());
 console.log(outer2());
 ```
+
 inner 함수의 실행 컨텍스트에서 environmentRecord는 수집할것이 없고 outerEnvironmentReference로는 함수가 선언된 위치의 LexicalEnvironment가 참조 복사 됩니다.<br>
 <img width="1006" alt="image" src="https://github.com/FrontendStudySeoul/coreJavascript/assets/103626175/8d7a8272-79ee-44ac-9d20-b0e64e9c202e">
 <br>
