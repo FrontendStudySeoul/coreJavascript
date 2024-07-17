@@ -101,17 +101,14 @@ console.log(iu.__proto__.name);           // 6.
 
 ```jsx
 var arr = [1, 2];
-// 1)
-Array.prototype.toString.call(arr); // 1,2
-// 2) 
+
+Array.prototype.toString.call(arr); // 1,2 
 Object.prototype.toString.call(arr); // [object Array]
-// 3)
 arr.toString(); // 1,2
 
-arr.toString = function() {z
+arr.toString = function() {
   return this.join('_');
 };
-// 4)
 arr.toString(); // 1_2
 ```
 
