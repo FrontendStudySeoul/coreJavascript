@@ -68,7 +68,7 @@ console.log(iu.__proto__.name);           // 6.
         ```
         
 - **iu 인스턴스 생성**
-    - `new Person('지금')`을 호출하여 `iu`라는 새로운 인스턴스를 생성 → 이 인스턴스는 `name` 프로퍼티로 `'지금'`을 가지게 됩니다.
+    - `new Person('지금')`을 호출하여 `iu`라는 새로운 인스턴스를 생성 → 이 인스턴스는 `name` 프로퍼티로 `'지금'`을 가지게 됨
         
         ```jsx
         var iu = new Person('지금');
@@ -84,7 +84,7 @@ console.log(iu.__proto__.name);           // 6.
         ```
         
 - **iu.getName() 호출**
-    - `iu.getName()`을 호출하면, 인스턴스의 `getName` 메서드가 호출됨 → 이 메서드는 인스턴스의 `name` 프로퍼티를 사용하여 `'바로 지금'`을 반환합니다.
+    - `iu.getName()`을 호출하면, 인스턴스의 `getName` 메서드가 호출됨 → 이 메서드는 인스턴스의 `name` 프로퍼티를 사용하여 `'바로 지금'`을 반환
         
         ```jsx
         console.log(iu.getName()); // 바로 지금
@@ -146,7 +146,7 @@ arr.toString(); // 1_2
 
 ![alt text](image-1.png)
 
-> 모든 객체는 **각 방식마다 세부적인 객체 생성 방식의 차**이는 있으나 **추상 연산 OrdinaryObjectCreate에 의해 생성된다는 공통점**이 있다. - from. 딥다이브
+> 모든 객체는 **각 방식마다 세부적인 객체 생성 방식의** 차이는 있으나 **추상 연산 OrdinaryObjectCreate에 의해 생성된다는 공통점**이 있다. - from. 딥다이브
 > 
 - **객체 생성 방식**
     
@@ -181,19 +181,18 @@ arr.toString(); // 1_2
 
 
 1. 빈 객체를 생성한다.
-
 2. 인수로 전달된 프로퍼티가 있으면 이를 객체에 추가한다.
 3. 인수로 전달받은 프로토타입을 생성한 객체의 [[Prototype]]내부 슬롯에 할당하여 객체를 반환한다.
     - 사용자 정의 생성자 함수일 경우 → prototype 프로퍼티에 바인딩 되어있는 객체 할당
-    - 객체 리터럴, Object 생성자 함수 → Object.prototype 할당
+    - **객체 리터럴**, Object 생성자 함수 → Object.prototype 할당
+        - **객체 리터럴로 생성한 객체** → 가상적인 생성자 함수를 가지게 됨 → 생성자 함수의 짝궁인 프로토타입이 생성됨 → prototype, constructor프로퍼티에 의해 연결되어 있기 때문
 
 **즉, 프로토타입은 추상 연산 OrdinaryObjectCreate 에 의해 전달되는 인수에 의해 결정되지만, 내부적으로는 평범 객체 생성을 호출하여 부모 프로토타입을 Object.prototype으로 가지게 한다는 것!**
 
 [참고]
-
 https://east-star.tistory.com/4
-
 https://xionwcfm.tistory.com/187#😎OrdinaryObjectCreate-1
+https://ko.javascript.info/constructor-new
 
 ```jsx
 // 생성자 함수로 객체 생성
@@ -211,6 +210,7 @@ function func2() {};
 console.log(obj2.constructor === Object); // true
 console.log(func2.constructor === Function); // true
 ```
+
 
 ### 객체 전용 메서드의 예외사항
 
@@ -250,8 +250,8 @@ data.forEach(function(datum) {
 
 만약 객체 전용 메서드들도 다른 데이터 타입처럼 인스턴스 메서드로 정의할 수 있었다면 문법이 이렇게 되었을 것
 
-- `Object.freeze(instance)` 대신 **`instance.**freeze()`
-- `Object.getPrototypeOf(instance)` 대신 **`instance.**getPrototype()`
+- `Object.freeze(instance)` 대신 `instance.freeze()`
+- `Object.getPrototypeOf(instance)` 대신 `instance.getPrototype()`
 
 💡 Object.create(null)는 __proto__가 없는 객체를 생성한다. 내장 객체 제거됨으로 기본 기능에 제약이 생기지만 성능상 이점을 가진다.
 
@@ -286,8 +286,8 @@ console.log(a.hasOwnProperty("b"))         // true
 console.log(a.hasOwnProperty("notExist"))  // true
 
 // ECMAScript 2022(ES13)에서 추가된 메서드 hasOwn, 정적 메서드
-console.log(Object.hasOwn(**a**, "b"))
-console.log(Object.hasOwn(**a**, "noExist"))
+console.log(Object.hasOwn(a, "b"))         // true 
+console.log(Object.hasOwn(a, "noExist"))   // false
 ```
 
 ![alt text](image-3.png)
