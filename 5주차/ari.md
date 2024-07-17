@@ -87,7 +87,7 @@ user1.sayHi();
 
 User라는 클래스를 통해 user1 이라는 인스턴스를 생성합니다.
 위에서 설명드렸듯이, User 클래스 내부의 메서드는 prototype안에 정의된다고 하였는데요.
-그래서 user1.sayHi()로 호출이 가능하게 됩니다. (user1.**proto**.sayHi 인거죠..! **proto** 생략되었으니 )
+그래서 user1.sayHi()로 호출이 가능하게 됩니다. (user1.__proto__.sayHi 인거죠..! __proto__ 생략되었으니 )
 
 이렇게 인스턴스에 상속되는 내부 메서드를 `프로토타입 메서드`라고 부르기로 했습니다.
 
@@ -177,8 +177,8 @@ g.push(70);
 console.log(g); // Grade { 0:70, 1:80, 2:90 , length:1 }
 ```
 
-`length:1` 이 된 까닭은 push(70)명령어를 통해 자바스크립트 엔진이 length를 읽으려고 하는데, g.length가 없음으로 프로토타입 체이닝을 타고 g.**proto**.length 를 읽어오게 된 것입니다.
-g.**proto**.length = 0 이기 때문에, 1만큼 증가하라는 명령이 문제없이 동작하게 됩니다.
+`length:1` 이 된 까닭은 push(70)명령어를 통해 자바스크립트 엔진이 length를 읽으려고 하는데, g.length가 없음으로 프로토타입 체이닝을 타고 g.__proto__.length 를 읽어오게 된 것입니다.
+g.__proto__.length = 0 이기 때문에, 1만큼 증가하라는 명령이 문제없이 동작하게 됩니다.
 
 **이처럼 클래스에 있는 값이 인스턴스의 동작에 영향을 줘서는 안되는 것입니다.**
 
@@ -219,7 +219,7 @@ var Square = function (width) {
 Square.prototype = new Rectangle();
 ```
 
-Rect 인스턴스를 prototype이 참조함으로서 rect1.**proto**가 가리키는 Rect의 prototype을 Square.prototyp이 참조하도록 해줬다. 상속의 구현!
+Rect 인스턴스를 prototype이 참조함으로서 rect1.__proto__가 가리키는 Rect의 prototype을 Square.prototyp이 참조하도록 해줬다. 상속의 구현!
 
 상속을 통해 중복을 제거할 수 있었지만 두가지 문제점이 있습니다.
 
