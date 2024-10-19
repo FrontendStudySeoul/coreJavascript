@@ -71,12 +71,14 @@ var $ul = document.createElement("ul");
 var alertFruit = function(fruit:string){
   alert("your choice is" + fruit)
 }
+
 fruits.forEach(function(fruit){
   var $li = document.createElement("li");
   $li.innerText = fruit;
   $li.addEventListner("click",alertFruit);
   $ul.appendChild($li);
 })
+
 document.bodoy.appendChild($ul);
 alertFruit(fruits[1]);
 ```
